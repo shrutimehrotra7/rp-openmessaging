@@ -26,7 +26,7 @@ topicConfig: |
   flush.ms=0
 commonConfig: |
   bootstrap.servers=172.31.17.54:9092,172.31.16.63:9092,172.31.17.94:9092
-  security.inter.broker.protocol=SSL
+  security.protocol=SSL
   ssl.key.password = aws@123
   ssl.keystore.location=/home/ec2-user/kafka.server.keystore.jks
   ssl.keystore.password=aws@123

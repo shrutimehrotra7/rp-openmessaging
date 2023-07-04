@@ -25,7 +25,7 @@ topicConfig: |
 
 commonConfig: |
   bootstrap.servers=172.31.17.54:9092,172.31.16.63:9092,172.31.17.94:9092
-  security.inter.broker.protocol=SSL
+  security.protocol=SSL
   ssl.key.password = aws@123
   ssl.keystore.location=
   ssl.keystore.password=aws@123
