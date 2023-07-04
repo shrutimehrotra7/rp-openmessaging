@@ -24,13 +24,20 @@ topicConfig: |
   min.insync.replicas=2
 
 commonConfig: |
-  bootstrap.servers=172.31.20.225:9092,172.31.25.79:9092,172.31.16.14:9092
+  bootstrap.servers=172.31.17.54:9092,172.31.16.63:9092,172.31.17.94:9092
+  security.inter.broker.protocol=SSL
+  ssl.key.password = aws@123
+  ssl.keystore.location=kafka.server.keystore.jks
+  ssl.keystore.password=aws@123
+  ssl.truststore.location=kafka.server.truststore.jks
+  ssl.truststore.password=aws@123
+  ssl.endpoint.identification.algorithm=
 
 producerConfig: |
   acks=all
-  linger.ms=200
+  linger.ms=100
   batch.size=1048576
-  compression.type=zstd
+  max.request.size=4194304
 
 consumerConfig: |
   auto.offset.reset=earliest
