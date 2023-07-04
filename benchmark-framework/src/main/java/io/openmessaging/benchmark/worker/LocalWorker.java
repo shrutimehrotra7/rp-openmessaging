@@ -112,6 +112,8 @@ public class LocalWorker implements Worker, ConsumerCallback {
 
     private boolean consumersArePaused = false;
 
+    private boolean producersArePaused = false;
+
     public LocalWorker() {
         this(NullStatsLogger.INSTANCE);
     }
@@ -225,6 +227,13 @@ public class LocalWorker implements Worker, ConsumerCallback {
 
             try {
                 while (!testCompleted) {
+                    while (producersArePaused) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     producers.forEach(producer -> {
                         byte[] payloadData = payloadCount == 0 ? firstPayload : payloads.get(r.nextInt(payloadCount));
                         final long intendedSendTime = rateLimiter.acquire();
@@ -416,6 +425,7 @@ public class LocalWorker implements Worker, ConsumerCallback {
     public void stopAll() throws IOException {
         testCompleted = true;
         consumersArePaused = false;
+        producersArePaused = false;
 
         publishLatencyRecorder.reset();
         scheduleLatencyRecorder.reset();
@@ -470,4 +480,16 @@ public class LocalWorker implements Worker, ConsumerCallback {
     }
 
     private static final Logger log = LoggerFactory.getLogger(LocalWorker.class);
+
+    @Override
+    public void pauseProducers() throws IOException {
+        producersArePaused = true;
+        log.info("Pausing producers");
+    }
+
+    @Override
+    public void resumeProducers() throws IOException {
+        producersArePaused = false;
+        log.info("Resuming producers");
+    }
 }

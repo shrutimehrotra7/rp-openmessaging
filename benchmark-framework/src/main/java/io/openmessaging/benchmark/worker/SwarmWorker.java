@@ -188,6 +188,16 @@ public class SwarmWorker implements Worker {
     }
 
     @Override
+    public void pauseProducers() throws IOException {
+        sendPost(workers, "/pause-consumers", new byte[0]);
+    }
+
+    @Override
+    public void resumeProducers() throws IOException {
+        sendPost(workers, "/resume-producers", new byte[0]);
+    }
+
+    @Override
     public void createConsumers(ConsumerAssignment overallConsumerAssignment) {
         List<CompletableFuture<Void>> futures = workers.stream().map(worker -> {
             try {
