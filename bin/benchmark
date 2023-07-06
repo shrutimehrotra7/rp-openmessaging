@@ -35,5 +35,5 @@ fi
 
 JVM_MEM="${HEAP_OPTS} -XX:+UseG1GC"
 JVM_GC_LOG=" -XX:+PrintGCDetails -XX:+PrintGCApplicationStoppedTime  -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=64m  -Xloggc:/dev/shm/benchmark-client-gc_%p.log"
-KAFKA_OPTS="-javaagent:/opt/benchmark/jmx_prometheus_javaagent-0.13.0.jar=11001:/opt/benchmark/metrics.yml"
+KAFKA_OPTS="-javaagent:/opt/benchmark/jmx_prometheus_javaagent-0.13.0.jar=9090:/opt/benchmark/metrics.yml"
 java -server -cp $CLASSPATH $JVM_MEM $KAFKA_OPTS io.openmessaging.benchmark.Benchmark $*
