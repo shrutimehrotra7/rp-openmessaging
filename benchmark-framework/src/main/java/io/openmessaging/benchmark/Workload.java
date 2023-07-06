@@ -54,4 +54,10 @@ public class Workload {
     public int warmupDurationMinutes = 30;
     public int sampleRateMillis = 10000;
     public int testDurationMinutes;
+    /**
+     * Consumer only tests. The warm-up phase will be run w/ the specified producer
+     * configuration until the specified backlog is built. Following that, the
+     * producers are shut off and the consumers are run until the backlog is drained
+     */
+    public boolean consumerOnly;
 }
